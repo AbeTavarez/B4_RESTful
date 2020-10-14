@@ -4,9 +4,12 @@ const morgan = require('morgan');
 const nconf = require('nconf');
 const pkg = require('./package.json');
 
-//*
+//* nconf should load arg vars first, then env vars.
+//two underscores to denote obj hierarchy should be use when reading env vars
 nconf.argv().env('__');
+// sets default values for conf param
 nconf.defaults({ conf: `${__dirname}/config.json` });
+// will filled any value not pass-in from the command line
 nconf.file(nconf.get('conf'));
 
 //*
